@@ -20,9 +20,11 @@ streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice = streamlit.text_input('What fruit would you like information about?','apple')
 streamlit.write('The user entered ', fruit_choice)
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/apple")
+#create the repeatable code block (called a function)
+def get_fruityvice_data(this_fruit_choice):
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-streamlit.dataframe(fruityvice_normalized)
+return fruityvice_normalized
 
 import snowflake.connector
 my_cur = my_cnx.cursor()
